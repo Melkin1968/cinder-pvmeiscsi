@@ -1,16 +1,4 @@
 options:
-  use-multipath:
-    type: boolean
-    default: True
-    description: |
-      Whether to use a multipath connection for iSCSI or FC in Cinder
-      volume service. Enabling multipath for VMs is managed by the
-      "use-multipath" option in the nova-compute charm.
-  protocol:
-    type: string
-    default:
-    description: |
-      SAN protocol to use. Choose between iscsi or fc.
   volume-backend-name:
     type: string
     description: |
@@ -20,3 +8,42 @@ options:
         A common backend name can be set to multiple backends with the
         same characters so that those can be treated as a single virtual
         backend associated with a single volume type.
+  san_ip:
+    type: string
+    default:
+    description: |
+        Specifies the IP addresses or host names of the array’s
+        management controllers.
+  san_login:
+    type: string
+    default:
+    description: |
+        Specify the username of an array user account with manage
+        privileges.
+  san_password:
+    type: string
+    default:
+    description: |
+        Specify the password of an array user account with manage privileges.
+  pvme_iscsi_ips:
+    type: string
+    default:
+    description: |
+       Specifies the iSCSI IP addresses for the array if using the iSCSI
+       transport protocol.
+  driver_use_ssl:
+    type: boolean
+    default: True
+    description: |
+        Must be set to True to enable use of the HTTPS protocol.
+  driver_ssl_cert_verify:
+    type: boolean
+    default: True
+    description: |
+        Must be set to True to enable certificate verification.
+  driver_ssl_cert_path:
+    type: string 
+    default:
+    description: |
+       Parameter to specify the path to a CA_BUNDLE file containing CAs
+       other than those in the default list. 

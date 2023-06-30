@@ -23,7 +23,6 @@ from ops.main import main
 class CinderCharmBase(CinderStoragePluginCharm):
 
     PACKAGES = ['cinder-common']
-    MANDATORY_CONFIG = ['protocol']
     # Overriden from the parent. May be set depending on the charm's properties
     stateless = True
     active_active = True
@@ -33,18 +32,26 @@ class CinderCharmBase(CinderStoragePluginCharm):
 
     def cinder_configuration(self, config):
         # Return the configuration to be set by the principal.
-        backend_name = config.get('volume-backend-name',
+        backend_name = config.get('cinder-pvmeiscsi',
                                   self.framework.model.app.name)
-        volume_driver = ''
+        volume_driver = 'cinder.volume.drivers.dell_emc.powervault.iscsi.PVMEISCSIDriver'
+        pool_name = 'A'
         options = [
             ('volume_driver', volume_driver),
             ('volume_backend_name', backend_name),
+            ('pvme_pool_name', pool_name),
+            ('san_ip', config['san_ip']),
+            ('san_login', config['san_login']),
+            ('san_password', config['san_password']),
+            ('pvme_iscsi_ips', config['pvme_iscsi_ips']),
         ]
+        
 
-        if config.get('use-multipath'):
+
+        if config.get('driver_use_ssl'):
             options.extend([
-                ('use_multipath_for_image_xfer', True),
-                ('enforce_multipath_for_image_xfer', True)
+                ('driver_ssl_cert_verify', config['driver_ssl_cert_verify']),
+                ('driver_ssl_cert_path', config['driver_ssl_cert_path'])
             ])
 
         return options
