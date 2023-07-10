@@ -1,8 +1,8 @@
 - project:
     templates:
-      - charm-unit-jobs-py38
-      - charm-unit-jobs-py39
+      - charm-unit-jobs
     vars:
       needs_charm_build: true
-      charm_build_name: pvmeiscsi
+      charm_build_name: cinder-pvmeiscsi
       build_type: charmcraft
+      charmcraft_channel: 2.2/stable

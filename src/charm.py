@@ -20,7 +20,7 @@ from ops_openstack.core import charm_class, get_charm_class_for_release
 from ops.main import main
 
 
-class CinderCharmBase(CinderStoragePluginCharm):
+class CinderPVMEISCSICharm(CinderStoragePluginCharm):
 
     PACKAGES = ['cinder-common']
     # Overriden from the parent. May be set depending on the charm's properties
@@ -57,10 +57,5 @@ class CinderCharmBase(CinderStoragePluginCharm):
         return options
 
 
-@charm_class
-class CinderPVMEISCSICharm(CinderCharmBase):
-    release = 'zed'
-
-
 if __name__ == '__main__':
-    main(get_charm_class_for_release())
+    main(CinderPVMEISCSICharm)

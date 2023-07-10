@@ -27,4 +27,4 @@ bases:
           - amd64
     run-on:
       - name: ubuntu
-        channel: "22.10"
+        channel: "22.04"
