@@ -32,18 +32,16 @@ class CinderPVMEISCSICharm(CinderStoragePluginCharm):
 
     def cinder_configuration(self, config):
         # Return the configuration to be set by the principal.
-        backend_name = config.get('cinder-pvmeiscsi',
-                                  self.framework.model.app.name)
         volume_driver = 'cinder.volume.drivers.dell_emc.powervault.iscsi.PVMEISCSIDriver'
-        pool_name = 'A'
         options = [
             ('volume_driver', volume_driver),
-            ('volume_backend_name', backend_name),
-            ('pvme_pool_name', pool_name),
+            ('volume_backend_name', 'cinder-pvme'),
+            ('pvme_pool_name', config['pvme_pool_name']),
             ('san_ip', config['san_ip']),
             ('san_login', config['san_login']),
             ('san_password', config['san_password']),
             ('pvme_iscsi_ips', config['pvme_iscsi_ips']),
+            ('driver_use_ssl', config['driver_use_ssl']),
         ]
         
 
@@ -51,7 +49,7 @@ class CinderPVMEISCSICharm(CinderStoragePluginCharm):
         if config.get('driver_use_ssl'):
             options.extend([
                 ('driver_ssl_cert_verify', config['driver_ssl_cert_verify']),
-                ('driver_ssl_cert_path', config['driver_ssl_cert_path'])
+#               ('driver_ssl_cert_path', config['driver_ssl_cert_path'])
             ])
 
         return options

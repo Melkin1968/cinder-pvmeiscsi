@@ -31,6 +31,11 @@ options:
     description: |
        Specifies the iSCSI IP addresses for the array if using the iSCSI
        transport protocol.
+  pvme_pool_name:
+    type: string
+    default:
+    description: |
+       Value specifies the name of the storage Pool or Vdisk on the array.
   driver_use_ssl:
     type: boolean
     default: True
